@@ -30,6 +30,7 @@ const Nav = () => {
             fetchProviders()
         }
     }, []);
+    console.log(providers);
 
     return (
         <nav className="flex justify-between w-full mb-16 pt-3">
@@ -82,6 +83,7 @@ const Nav = () => {
                                 Sign In with {provider.name}
                             </button>
                         </div>
+                        
                     ))}
                     </div>
                 )
