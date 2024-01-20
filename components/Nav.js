@@ -37,6 +37,7 @@ const Nav = () => {
             <Link href={'/'} className="flex gap-2 flex-center">
                 <Image src={"/assets/images/logo.svg"} alt="Promptopia" width={30} className="object-contain" height={30} />
                 <h4>Promptopia</h4>
+                <p>{providers.google.name}</p>
             </Link>
             <div className="sm:flex hidden relative">
                 {session?.user ? (
@@ -87,6 +88,7 @@ const Nav = () => {
                         
                     ))}
                     </div>
+                  
                 )
                 }
             </div>
