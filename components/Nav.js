@@ -36,6 +36,7 @@ const Nav = () => {
         <nav className="flex justify-between w-full mb-16 pt-3">
             <Link href={'/'} className="flex gap-2 flex-center">
                 <Image src={"/assets/images/logo.svg"} alt="Promptopia" width={30} className="object-contain" height={30} />
+                <h4>Promptopia</h4>
             </Link>
             <div className="sm:flex hidden relative">
                 {session?.user ? (
