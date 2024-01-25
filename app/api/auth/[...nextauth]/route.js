@@ -2,7 +2,15 @@ import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
 import User from '@models/User';
+import slugify from 'slugify';
 import { connectToDB } from '@utils/database';
+
+const capitalizeEachWord = (str) => {
+  if (str && typeof str === 'string') {
+    return str.replace(/\b\w/g, (char) => char.toUpperCase());
+  }
+  return str;
+};
 
 const handler = NextAuth({
   providers: [
@@ -30,9 +38,12 @@ const handler = NextAuth({
         if (!userExists) {
           await User.create({
             email: profile.email,
-            username: profile.name.replace(" ", "").toLowerCase(),
+            username: profile.name.replace(" ","").toLocaleLowerCase(),
             image: profile.picture,
+            slug: slugify(profile.name.replace(" ","").toLowerCase()),
+
           });
+          
         }
 
         return true
@@ -41,6 +52,10 @@ const handler = NextAuth({
         return false
       }
     },
+    // async redirect({url, baseUrl}) {
+    //   return url.startsWith(baseUrl) ? url : baseUrl;
+    // },
+   
   }
 })
 

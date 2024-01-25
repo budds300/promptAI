@@ -15,7 +15,7 @@ const MyProfile = () => {
         const hasConfirmed = confirm("Are you sure you want to delete this prompt?")
         if(hasConfirmed){
           try {
-            await axios.delete(`/api/prompt/${post._id.toString()}`)
+            await axios.delete(`/api/prompt/${post.slug}`)
             const filteredPosts = posts.filter((p)=>p._id!==post._id)
             setPosts(filteredPosts)
             
@@ -28,7 +28,7 @@ const MyProfile = () => {
 
     const handleEdit = (post) => {
         // Implement your edit logic
-        router.push(`/update-prompt?id=${post._id}`)
+        router.push(`/update-prompt?id=${post.slug}`)
     }
 
 

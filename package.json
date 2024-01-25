@@ -18,7 +18,8 @@
     "next": "14.0.4",
     "next-auth": "^4.24.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "slugify": "^1.6.6"
   },
   "devDependencies": {
     "@swc/cli": "^0.1.63",

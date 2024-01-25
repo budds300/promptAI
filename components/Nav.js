@@ -3,13 +3,15 @@ import Link from "next/link"
 import Image from "next/image"
 import { useState, useEffect, useRef } from "react"
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react'
+import { useRouter } from "next/navigation"
 
 const Nav = () => {
-    const isUserLoggedIn = true;
+   
     const [providers, setProvider] = useState("")
     const [toggleDropdown, settoggleDropdown] = useState(false);
     const containerRef = useRef()
     const {data:session}=useSession()
+    const router= useRouter()
 
     const handleClickAway = (e) => {
         if (containerRef.current && !containerRef.current.contains(e.target)) {
@@ -17,7 +19,12 @@ const Nav = () => {
 
         }
     }
- 
+    const handleSignOut = async () => {
+        // Sign out the user
+        await signOut({ callbackUrl: '/' });
+        // Navigate to the homepage
+        router.push('/');
+      };
 
     useEffect(() => {
         document.addEventListener("click", handleClickAway)
@@ -43,7 +50,7 @@ const Nav = () => {
                 {session?.user ? (
                     <div className="flex gap-3 md:gap-5">
                         <Link href={"/create-prompt"} className="black_btn">Create Post</Link>
-                        <button onClick={signOut} className="outline_btn"> Sign Out </button>
+                        <button onClick={handleSignOut} className="outline_btn"> Sign Out </button>
                         <Link href={"profile"}>
                             <Image className="rounded-full" alt="profile Photo" src={session?.user.image} width={30} height={30} />
                         </Link>
@@ -72,7 +79,7 @@ const Nav = () => {
                             <div className="dropdown">
                                 <Link href={"/profile"} className="dropdown_link" onClick={() => settoggleDropdown(false)}>My Profile</Link>
                                 <Link href={"/create-prompt"} className="dropdown_link" onClick={() => settoggleDropdown(false)}>Create Prompt</Link>
-                                <button type="button" className="black_btn" onClick={(() => { settoggleDropdown(false); signOut() })}>Sign Out</button>
+                                <button type="button" className="black_btn" onClick={(() => { settoggleDropdown(false); handleSignOut })}>Sign Out</button>
                             </div>
                         )}
                     </div>
